@@ -7,66 +7,123 @@ import { Badge } from "@/components/ui/badge";
 export const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Sample products based on typical 3D printing inventory
+  // Your actual company inventory
   const products = [
     {
       id: 1,
-      name: "Custom Phone Stand",
-      category: "home-goods",
-      price: 15.99,
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      name: "Aerospace Bracket",
+      category: "aerospace",
+      price: 120.50,
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       inStock: true,
-      description: "Adjustable phone stand with clean design"
+      stockCount: 15,
+      material: "Carbon Fiber",
+      description: "Lightweight bracket for aerospace applications"
     },
     {
       id: 2,
-      name: "Dragon Miniature Set",
-      category: "game-pieces",
-      price: 24.99,
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      name: "Custom Vase",
+      category: "home-goods",
+      price: 25.00,
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       inStock: true,
-      description: "Detailed dragon miniatures for tabletop games"
+      stockCount: 30,
+      material: "PLA",
+      description: "Decorative vase with intricate design"
     },
     {
       id: 3,
-      name: "Desk Organizer",
+      name: "Flower Pot",
       category: "home-goods",
-      price: 29.99,
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      price: 15.75,
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       inStock: true,
-      description: "Multi-compartment desk organizer"
+      stockCount: 50,
+      material: "ABS",
+      description: "Small flower pot for indoor plants"
     },
     {
       id: 4,
-      name: "Chess Set",
-      category: "game-pieces",
-      price: 49.99,
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      inStock: false,
-      description: "Classic chess set with modern design"
+      name: "Door Handle",
+      category: "home-goods",
+      price: 8.99,
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      inStock: true,
+      stockCount: 20,
+      material: "PETG",
+      description: "Replacement handle for doors"
     },
     {
       id: 5,
-      name: "Wall Hook Set",
-      category: "home-goods",
-      price: 12.99,
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      name: "Chess Set Pieces",
+      category: "game-pieces",
+      price: 45.00,
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       inStock: true,
-      description: "Set of 4 decorative wall hooks"
+      stockCount: 10,
+      material: "Resin",
+      description: "Complete set of chess pieces"
     },
     {
       id: 6,
-      name: "Dice Set",
-      category: "game-pieces",
-      price: 18.99,
+      name: "Drone Frame",
+      category: "aerospace",
+      price: 85.00,
       image: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       inStock: true,
-      description: "Complete polyhedral dice set"
+      stockCount: 12,
+      material: "Carbon Fiber",
+      description: "Lightweight frame for drones"
+    },
+    {
+      id: 7,
+      name: "Phone Stand",
+      category: "home-goods",
+      price: 12.50,
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      inStock: true,
+      stockCount: 40,
+      material: "PLA",
+      description: "Adjustable stand for smartphones"
+    },
+    {
+      id: 8,
+      name: "Gear Wheel",
+      category: "aerospace",
+      price: 18.00,
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      inStock: true,
+      stockCount: 25,
+      material: "Nylon",
+      description: "Replacement gear for machinery"
+    },
+    {
+      id: 9,
+      name: "Board Game Tokens",
+      category: "game-pieces",
+      price: 5.00,
+      image: "https://images.unsplash.com/photo-1487252665478-49b61b47f302?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      inStock: true,
+      stockCount: 100,
+      material: "Resin",
+      description: "Custom tokens for board games"
+    },
+    {
+      id: 10,
+      name: "Car Cup Holder Insert",
+      category: "home-goods",
+      price: 10.25,
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      inStock: true,
+      stockCount: 35,
+      material: "ABS",
+      description: "Replacement insert for car cup holders"
     }
   ];
 
   const categories = [
     { id: "all", name: "All Products" },
+    { id: "aerospace", name: "Aerospace" },
     { id: "home-goods", name: "Home Goods" },
     { id: "game-pieces", name: "Game Pieces" }
   ];
@@ -120,15 +177,18 @@ export const Products = () => {
                     {product.name}
                   </h3>
                   <Badge variant={product.inStock ? "default" : "secondary"}>
-                    {product.inStock ? "In Stock" : "Out of Stock"}
+                    {product.inStock ? `${product.stockCount} in stock` : "Out of Stock"}
                   </Badge>
                 </div>
-                <p className="text-muted-foreground text-sm mb-3">
+                <p className="text-muted-foreground text-sm mb-2">
                   {product.description}
+                </p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Material: {product.material}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-primary">
-                    ${product.price}
+                    ${product.price.toFixed(2)}
                   </span>
                   <Button 
                     disabled={!product.inStock}
