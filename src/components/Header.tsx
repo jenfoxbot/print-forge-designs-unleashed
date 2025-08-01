@@ -1,15 +1,37 @@
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to sign out",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed out",
+        description: "You have been successfully signed out",
+      });
+    }
   };
 
   return (
@@ -46,6 +68,35 @@ export const Header = () => {
             >
               Contact
             </button>
+            
+            {/* Auth Buttons */}
+            <div className="flex items-center space-x-4">
+              {user ? (
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <User size={16} />
+                    <span>{user.email}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSignOut}
+                    className="flex items-center space-x-1"
+                  >
+                    <LogOut size={16} />
+                    <span>Sign Out</span>
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate('/auth')}
+                >
+                  Sign In
+                </Button>
+              )}
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -84,6 +135,39 @@ export const Header = () => {
             >
               Contact
             </button>
+            
+            {/* Mobile Auth Buttons */}
+            <div className="pt-4 border-t border-border">
+              {user ? (
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <User size={16} />
+                    <span>{user.email}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSignOut}
+                    className="w-full flex items-center justify-center space-x-1"
+                  >
+                    <LogOut size={16} />
+                    <span>Sign Out</span>
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    navigate('/auth');
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full"
+                >
+                  Sign In
+                </Button>
+              )}
+            </div>
           </nav>
         )}
       </div>
