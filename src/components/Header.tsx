@@ -5,9 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { CartIcon } from "@/components/CartIcon";
+import { Cart } from "@/components/Cart";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -69,8 +73,22 @@ export const Header = () => {
               Contact
             </button>
             
-            {/* Auth Buttons */}
+            {/* Cart and Auth Buttons */}
             <div className="flex items-center space-x-4">
+              <Dialog open={isCartOpen} onOpenChange={setIsCartOpen}>
+                <DialogTrigger asChild>
+                  <div>
+                    <CartIcon onClick={() => setIsCartOpen(true)} />
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Shopping Cart</DialogTitle>
+                  </DialogHeader>
+                  <Cart />
+                </DialogContent>
+              </Dialog>
+              
               {user ? (
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -136,8 +154,19 @@ export const Header = () => {
               Contact
             </button>
             
-            {/* Mobile Auth Buttons */}
-            <div className="pt-4 border-t border-border">
+            {/* Mobile Cart and Auth Buttons */}
+            <div className="pt-4 border-t border-border space-y-3">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setIsCartOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="w-full"
+              >
+                View Cart
+              </Button>
+              
               {user ? (
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
